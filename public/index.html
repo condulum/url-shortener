@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>URL Shortener</title>
+  </head>
+  <body>
+    <h1>URL Shortener</h1>
+    <noscript>
+      <p>This website requires JavaScript to be turned on.</p>
+    </noscript>
+    <form action="">
+      <span>URL to be shortened: </span><br />
+      <input type="text" id="url">
+      <input type="submit" value="Submit">
+    </form>
+    <p style="display: none;">
+      Your shortened url: <a id="shortened"></a>
+    </p>
+  </body>
+  <script>
+    const form = document.getElementsByTagName('form')[0];
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const urlobj = document.getElementById('url');
+      const XHR = new XMLHttpRequest();
+      XHR.open('PUT', '/');
+      XHR.setRequestHeader('Content-Type', 'application/json');
+      XHR.send(JSON.stringify({ url: urlobj.value}));
+      XHR.onreadystatechange = () => {
+        if (XHR.readyState === XHR.DONE && XHR.status === 200) {
+          const shortened = document.getElementById('shortened');
+          shortened.setAttribute('href', XHR.responseText)
+          shortened.innerText = XHR.responseText;
+          document.getElementsByTagName('p')[0].style = '';
+        }
+      }
+    });
+  </script>
+</html>
