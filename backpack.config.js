@@ -17,10 +17,6 @@ module.exports = {
       }
     );
 
-    // config.output = {
-    //   path: path.resolve(__dirname, 'dist')
-    // }
-
     return config
   }
 }

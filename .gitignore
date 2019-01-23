@@ -9,3 +9,4 @@ node_modules/
 .npm
 .node_repl_history
 build/
+.DS_Store
